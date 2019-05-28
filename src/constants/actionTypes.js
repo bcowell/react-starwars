@@ -1,0 +1,2 @@
+export const REQUEST_SHIPS = 'REQUEST_SHIPS';
+export const RECIEVE_SHIPS = 'RECIEVE_SHIPS';
