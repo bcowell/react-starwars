@@ -30,7 +30,7 @@ function fetchShips() {
 
 function shouldFetchShips(state) {
     const ships = state.ships
-    if (!ships) { return true }
+    if (ships.shipList.length === 0) { return true }
     else if (ships.isFetching) { return false}
 }
 

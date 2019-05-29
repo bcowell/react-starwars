@@ -15,7 +15,7 @@ class ShipContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-    ships: state.ships,
+    ships: state.ships.shipList,
 })
 
 const mapDispatchToProps = dispatch => ({
