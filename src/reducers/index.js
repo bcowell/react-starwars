@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import shipsReducer from './shipsReducer';
+import shipReducer from './shipReducer';
 
 const rootReducer = combineReducers({
-    ships: shipsReducer,
+    ships: shipReducer,
 })
 
 export default rootReducer;

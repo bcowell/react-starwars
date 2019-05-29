@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchShipsIfNeeded } from '../actions';
+import { fetchShipsIfNeeded } from '../actions/shipActions';
 import Ships from '../components/Ships';
 
 class ShipContainer extends Component {
 
     componentDidMount() {
-        this.props.fetchShips();
+        const shipId = this.props.match.params.id;
+        this.props.fetchShips(shipId); // Optional ship id
     }
 
     render() {
@@ -19,7 +20,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    fetchShips: () => dispatch(fetchShipsIfNeeded()),
+    fetchShips: (shipId) => dispatch(fetchShipsIfNeeded(shipId)),
 })
 
 export default connect(
