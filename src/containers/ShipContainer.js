@@ -11,12 +11,14 @@ class ShipContainer extends Component {
     }
 
     render() {
-        return <Ships ships={this.props.ships}/>
+        let { isFetching, ships } = this.props;
+        return <Ships ships={ships} isFetching={isFetching} />
     }
 }
 
 const mapStateToProps = state => ({
     ships: state.ships.shipList,
+    isFetching: state.ships.isFetching,
 })
 
 const mapDispatchToProps = dispatch => ({
