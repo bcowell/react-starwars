@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 import ShipContainer from './ShipContainer';
 
 const Routes = () => 
@@ -13,6 +14,7 @@ const App = () =>
     <>
         <Navbar />
         <Routes />
+        <Footer />
     </>
 
 export default App;

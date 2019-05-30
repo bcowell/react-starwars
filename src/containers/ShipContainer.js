@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchShipsIfNeeded } from '../actions/shipActions';
 import Ships from '../components/Ships';
+import Pagination from '../components/Pagination';
+import { Container, Row, Col } from 'reactstrap';
 
 class ShipContainer extends Component {
 
@@ -12,7 +14,22 @@ class ShipContainer extends Component {
 
     render() {
         let { isFetching, ships } = this.props;
-        return <Ships ships={ships} isFetching={isFetching} />
+        return (
+            <Container>
+                <Row>
+                    <Ships ships={ships} isFetching={isFetching} />
+                </Row>
+                { // only show pagination buttons for the list, not single ships
+                    !this.props.match.params.id ?
+                        <Row>
+                            <Col sm="12" md={{ size: 6, offset: 3 }} >
+                                <Pagination />
+                            </Col>
+                        </Row>
+                    : null
+                }
+            </Container>
+            )
     }
 }
 
@@ -22,7 +39,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    fetchShips: (shipId) => dispatch(fetchShipsIfNeeded(shipId)),
+    fetchShips: (url) => dispatch(fetchShipsIfNeeded(url)),
 })
 
 export default connect(
