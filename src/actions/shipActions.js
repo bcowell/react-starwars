@@ -26,11 +26,8 @@ function recieveShip(json) {
     }
 }
 
-
-function fetchShips(shipId) {
-    return dispatch => {
-        dispatch(requestShips(shipId));
-        return fetch(`${baseURL}/starships/${shipId ? shipId : ''}`)
+export function getShips(shipId) {
+    return fetch(`${baseURL}/starships/${shipId ? shipId : ''}`)
         .then(response => response.json())
         .then(json => {
             // Possibility of fetching a single ship via id
@@ -38,6 +35,12 @@ function fetchShips(shipId) {
             ? dispatch(recieveShips(json))
             : dispatch(recieveShip(json))
         });
+}
+
+function fetchShips(shipId) {
+    return dispatch => {
+        dispatch(requestShips(shipId));
+        getShips(shipId);
     }
 }
 
