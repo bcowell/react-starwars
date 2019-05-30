@@ -8154,11 +8154,6 @@ react-scripts@3.0.1:
   optionalDependencies:
     fsevents "2.0.6"
 
-react-top-loading-bar@^1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/react-top-loading-bar/-/react-top-loading-bar-1.0.5.tgz#66fced88c84e91bae49d2c76c1f8ab18de3d98d4"
-  integrity sha512-C6UTDzzyNJf0yz7SCKdIcuUcF/JOd3VPoaInUJ8ZWrgTJ0+g4cVWOaooO/RrxrhpGw26apr0n60/qw63h6Ibhg==
-
 react-transition-group@^2.3.1:
   version "2.9.0"
   resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-2.9.0.tgz#df9cdb025796211151a436c69a8f3b97b5b07c8d"
