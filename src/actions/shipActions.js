@@ -26,7 +26,7 @@ function recieveShip(json) {
     }
 }
 
-export function getShips(shipId) {
+export function getShips(shipId, dispatch) {
     return fetch(`${baseURL}/starships/${shipId ? shipId : ''}`)
         .then(response => response.json())
         .then(json => {
@@ -40,7 +40,7 @@ export function getShips(shipId) {
 function fetchShips(shipId) {
     return dispatch => {
         dispatch(requestShips(shipId));
-        getShips(shipId);
+        getShips(shipId, dispatch);
     }
 }
 

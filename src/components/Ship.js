@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Table } from 'reactstrap';
 
@@ -9,12 +9,23 @@ import { Table } from 'reactstrap';
 const regExp = /[^\d]/g
 const parseUrlForId = url => url.replace(regExp, '')
 
-const Ship = ({ ships, history }) =>
-    ships.length === 1
-        ? <SingleShip ships={ships} history={history} />
-        : <ShipList ships={ships} history={history} />
+class Ship extends Component {
 
-const ShipList = ({ ships, history }) =>
+    updateRoute = (ship) => {
+        this.props.history.push(`/ships/${parseUrlForId(ship.url)}`)
+    }
+
+    render() {
+        const { ships } = this.props;
+        return (
+            ships.length === 1
+                ? <SingleShip ships={ships} updateRoute={this.updateRoute} />
+                : <ShipList ships={ships} updateRoute={this.updateRoute} />
+        )
+    }
+}
+
+const ShipList = ({ ships, updateRoute }) =>
     <Table responsive hover>
         <thead>
             <tr>
@@ -27,7 +38,7 @@ const ShipList = ({ ships, history }) =>
         <tbody>
             {
                 ships.map((ship, i) => (
-                    <tr onClick={() => history.push(`/ships/${parseUrlForId(ship.url)}`)} key={i}>
+                    <tr onClick={() => updateRoute(ship)} key={i}>
                         <th scope="row">{i}</th>
                         <th>{ship.name}</th>
                         <th>{ship.model}</th>
@@ -38,7 +49,7 @@ const ShipList = ({ ships, history }) =>
         </tbody>
     </Table>
 
-const SingleShip = ({ ships, history }) =>
+const SingleShip = ({ ships, updateRoute }) =>
     <Table responsive hover>
         <thead>
             <tr>
@@ -58,7 +69,7 @@ const SingleShip = ({ ships, history }) =>
         <tbody>
             {
                 ships.map((ship, i) => (
-                    <tr onClick={() => history.push(`/ships/${parseUrlForId(ship.url)}`)} key={i}>
+                    <tr onClick={() => updateRoute(ship)} key={i}>
                         <th>{ship.name}</th>
                         <th>{ship.starship_class}</th>
                         <th>{ship.model}</th>

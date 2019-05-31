@@ -5,20 +5,21 @@ const topHalf = {
     paddingTop: '45px',
     paddingBottom: '25px',
     color: 'white',
+    textAlign: 'center',
 }
 
 const bottomHalf = {
     backgroundColor: '#20232a',
-    color: 'white'
+    color: 'white',
+    textAlign: 'center',
 }
 
 const Footer = () => 
     <>
     <div style={topHalf} >
-        Top half
     </div>
     <div style={bottomHalf} >
-        Footer
+        Brayden Cowell
     </div>
     </>
 

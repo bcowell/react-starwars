@@ -12,9 +12,6 @@ import {
 const NavLinks = () =>
     <Nav className="ml-auto" navbar>
         <NavItem>
-            <NavLink href="/ships/">Ships</NavLink>
-        </NavItem>
-        <NavItem>
             <NavLink href="https://github.com/bcowell/react-starwars">Source Code</NavLink>
         </NavItem>
     </Nav>
