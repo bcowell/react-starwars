@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Table } from 'reactstrap';
 
@@ -9,20 +9,17 @@ import { Table } from 'reactstrap';
 const regExp = /[^\d]/g
 const parseUrlForId = url => url.replace(regExp, '')
 
-class Ship extends Component {
+const Ship = ({ ships, history }) => {
 
-    updateRoute = (ship) => {
-        this.props.history.push(`/ships/${parseUrlForId(ship.url)}`)
+    const updateRoute = (ship) => {
+        history.push(`/ships/${parseUrlForId(ship.url)}`)
     }
 
-    render() {
-        const { ships } = this.props;
-        return (
-            ships.length === 1
-                ? <SingleShip ships={ships} updateRoute={this.updateRoute} />
-                : <ShipList ships={ships} updateRoute={this.updateRoute} />
-        )
-    }
+    return (
+        ships.length === 1
+            ? <SingleShip ships={ships} updateRoute={updateRoute} />
+            : <ShipList ships={ships} updateRoute={updateRoute} />
+    )
 }
 
 const ShipList = ({ ships, updateRoute }) =>

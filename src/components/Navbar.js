@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Collapse,
     Navbar as ReactstrapNavbar,
@@ -16,33 +16,21 @@ const NavLinks = () =>
         </NavItem>
     </Nav>
 
-class Navbar extends React.Component {
-    constructor(props) {
-        super(props);
+function Navbar() {
 
-        this.toggle = this.toggle.bind(this);
-        this.state = {
-            isOpen: false
-        };
-    }
-    toggle() {
-        this.setState({
-            isOpen: !this.state.isOpen
-        });
-    }
-    render() {
+    const [isOpen, toggle] = useState(false);
+
         return (
             <div>
                 <ReactstrapNavbar style={{ backgroundColor: "#20232a" }} dark expand="md">
                     <NavbarBrand href="/">React Star Wars</NavbarBrand>
-                    <NavbarToggler onClick={this.toggle} />
-                    <Collapse isOpen={this.state.isOpen} navbar>
+                    <NavbarToggler onClick={() => toggle(!isOpen)} />
+                    <Collapse isOpen={isOpen} navbar>
                         <NavLinks />
                     </Collapse>
                 </ReactstrapNavbar>
             </div>
         );
-    }
 }
 
 export default Navbar;

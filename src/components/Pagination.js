@@ -1,48 +1,46 @@
 import React from 'react';
 import { Pagination as PaginationBar, PaginationItem, PaginationLink } from 'reactstrap';
 
-export default class Pagination extends React.Component {
-    render() {
-      return (
-        <PaginationBar aria-label="Page navigation example">
-        <PaginationItem>
-            <PaginationLink first href="#" />
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink previous href="#" />
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href="#">
-              1
+const Pagination = () =>
+
+  <PaginationBar aria-label="Page navigation example">
+    <PaginationItem>
+      <PaginationLink first href="#" />
+    </PaginationItem>
+    <PaginationItem>
+      <PaginationLink previous href="#" />
+    </PaginationItem>
+    <PaginationItem>
+      <PaginationLink href="#">
+        1
             </PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href="#">
-              2
+    </PaginationItem>
+    <PaginationItem>
+      <PaginationLink href="#">
+        2
             </PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href="#">
-              3
+    </PaginationItem>
+    <PaginationItem>
+      <PaginationLink href="#">
+        3
             </PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href="#">
-              4
+    </PaginationItem>
+    <PaginationItem>
+      <PaginationLink href="#">
+        4
             </PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href="#">
-              5
+    </PaginationItem>
+    <PaginationItem>
+      <PaginationLink href="#">
+        5
             </PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink next href="#" />
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink last href="#" />
-          </PaginationItem>
-        </PaginationBar>
-      );
-    }
-  }
+    </PaginationItem>
+    <PaginationItem>
+      <PaginationLink next href="#" />
+    </PaginationItem>
+    <PaginationItem>
+      <PaginationLink last href="#" />
+    </PaginationItem>
+  </PaginationBar>
+
+export default Pagination;
