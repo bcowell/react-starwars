@@ -46,7 +46,10 @@ function fetchShips(shipId) {
 
 function shouldFetchShips(state, shipId) {
     const ships = state.ships
-    if (shipId || ships.shipList.length === 0) { return true }
+    // Haven't fetched ships
+    // or the case we'd like to fetch a single ship's details
+    // or we'd like to re-fetch the shipList after visiting a ship's details
+    if (ships.shipList.length === 0 || (shipId && ships.shipList.length > 1) || (!shipId && ships.shipList.length === 1)) { return true }
     else if (ships.isFetching) { return false}
 }
 
