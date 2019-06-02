@@ -3,8 +3,10 @@ import { baseURL } from '../constants/api';
 import {
     REQUEST_SHIPS,
     RECIEVE_SHIPS,
+    REQUEST_NEXT_PAGE,
+    RECIEVE_NEXT_PAGE,
 }
-from '../constants/actionTypes';
+    from '../constants/actionTypes';
 
 function requestShips() {
     return {
@@ -26,31 +28,47 @@ function recieveShip(json) {
     }
 }
 
-export function getShips(shipId, dispatch) {
-    return fetch(`${baseURL}/starships/${shipId ? shipId : ''}`)
+function requestNextPage() {
+    return {
+        type: REQUEST_NEXT_PAGE
+    }
+}
+
+function recieveNextPage(json) {
+    return {
+        type: RECIEVE_NEXT_PAGE,
+        next: json.next
+    }
+}
+
+export function getShips(url, dispatch) {
+    return fetch(url)
         .then(response => response.json())
         .then(json => {
             // Possibility of fetching a single ship via id
-            json.results 
-            ? dispatch(recieveShips(json))
-            : dispatch(recieveShip(json))
+            json.results
+                ? dispatch(recieveShips(json))
+                : dispatch(recieveShip(json))
+            // And store next page for pagination
+            dispatch(recieveNextPage(json))
         });
 }
 
 function fetchShips(shipId) {
     return dispatch => {
         dispatch(requestShips(shipId));
-        getShips(shipId, dispatch);
+        let url = `${baseURL}/starships/${shipId ? shipId : ''}`
+        getShips(url, dispatch);
     }
 }
 
 function shouldFetchShips(state, shipId) {
     const ships = state.ships
-    // Haven't fetched ships
-    // or the case we'd like to fetch a single ship's details
-    // or we'd like to re-fetch the shipList after visiting a ship's details
-    if (ships.shipList.length === 0 || (shipId && ships.shipList.length > 1) || (!shipId && ships.shipList.length === 1)) { return true }
-    else if (ships.isFetching) { return false}
+    if (ships.shipList.length === 0 || // Haven't fetched ships
+        (shipId && ships.shipList.length > 1) || // or we'd like to fetch a single ship's details
+        (!shipId && ships.shipList.length === 1) // or we'd like to re-fetch the shipList after visiting a ship's details
+    ) { return true }
+    else if (ships.isFetching) { return false }
 }
 
 export function fetchShipsIfNeeded(shipId) {
@@ -58,5 +76,25 @@ export function fetchShipsIfNeeded(shipId) {
         if (shouldFetchShips(getState(), shipId)) {
             return dispatch(fetchShips(shipId));
         }
+    }
+}
+
+function getNextPage(state) {
+    const ships = state.ships
+    const next = state.ships.next
+    if (!ships.isFetching) {
+        return dispatch => {
+            dispatch(requestNextPage);
+            if (next) {
+                getShips(next, dispatch);
+            }
+            // else out of ships to fetch
+        }
+    }
+}
+
+export function loadMoreShipsForInfiniteScroll() {
+    return (dispatch, getState) => {
+        dispatch(getNextPage(getState()));
     }
 }

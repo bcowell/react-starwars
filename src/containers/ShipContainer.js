@@ -1,9 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchShipsIfNeeded } from '../actions/shipActions';
+import { 
+    fetchShipsIfNeeded,
+    loadMoreShipsForInfiniteScroll,
+} from '../actions/shipActions';
 import Ships from '../components/Ships';
-import Pagination from '../components/Pagination';
-import { Container, Row, Col } from 'reactstrap';
+import { Container, Row } from 'reactstrap';
+import InfiniteLoader from 'react-infinite-loader'
+
 
 const ShipContainer = (props) => {
 
@@ -17,17 +21,9 @@ const ShipContainer = (props) => {
     return (
         <Container>
             <Row>
-                <Ships ships={ships} isFetching={isFetching} />
+                <Ships ships={ships} isFetching={isFetching} style={{ height: '100vh' }}/>
+                <InfiniteLoader onVisited={() => props.loadMore()} />
             </Row>
-            { // only show pagination buttons for the list, not single ships
-                !props.match.params.id ?
-                    <Row>
-                        <Col sm="12" md={{ size: 6, offset: 3 }} >
-                            <Pagination />
-                        </Col>
-                    </Row>
-                    : null
-            }
         </Container>
     )
 }
@@ -39,9 +35,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     fetchShips: (url) => dispatch(fetchShipsIfNeeded(url)),
+    loadMore: () => dispatch(loadMoreShipsForInfiniteScroll()),
 })
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
-)(ShipContainer);
+    mapStateToProps, 
+    mapDispatchToProps
+)(ShipContainer)
