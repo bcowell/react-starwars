@@ -81,22 +81,20 @@ export function fetchShipsIfNeeded(shipId) {
     }
 }
 
-function getNextPage(state) {
+function getNextPage(state, dispatch) {
     const ships = state.ships
     const next = state.ships.next
     if (!ships.isFetching) {
-        return dispatch => {
-            dispatch(requestNextPage);
-            if (next) {
-                getShips(next, dispatch);
-            }
-            // else out of ships to fetch
+        dispatch(requestNextPage);
+        if (next) {
+            getShips(next, dispatch);
         }
+        // else out of ships to fetch
     }
 }
 
 export function loadMoreShipsForInfiniteScroll() {
     return (dispatch, getState) => {
-        dispatch(getNextPage(getState()));
+        getNextPage(getState(), dispatch);
     }
 }

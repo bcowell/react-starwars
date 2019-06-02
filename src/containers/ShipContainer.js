@@ -6,24 +6,23 @@ import {
 } from '../actions/shipActions';
 import Ships from '../components/Ships';
 import { Container, Row } from 'reactstrap';
-import InfiniteLoader from 'react-infinite-loader'
+import InfiniteLoader from 'react-infinite-loader';
 
 
 const ShipContainer = (props) => {
 
     let { isFetching, ships } = props;
+    const shipId = props.match.params.id;
 
     if (!isFetching) {
-        const shipId = props.match.params.id;
         props.fetchShips(shipId); // Optional ship id
     }
-
 
     return (
         <Container>
         <Row>
             <Ships ships={ships} isFetching={isFetching} style={{ height: '100vh' }} />
-            <InfiniteLoader onVisited={() => props.loadMore()} />
+            {!shipId ? <InfiniteLoader onVisited={() => props.loadMore()} /> : null}
         </Row>
     </Container>
     )
