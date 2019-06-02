@@ -13,9 +13,16 @@ const initialState = {
 }
 
 function doRecieveShips(state, action) {
-    let shipList = JSON.parse(JSON.stringify(state.shipList)); // deep copy, so we don't mutate
-    shipList = shipList.concat(action.ships)
-    return {...state, isFetching: false, shipList }
+    // We are either recieving one or a list of ships 
+    let shipList = state.shipList;
+    if (action.ships.length > 1) {
+        JSON.parse(JSON.stringify(state.shipList)); // deep copy, so we don't mutate
+        shipList = shipList.concat(action.ships);
+    }
+    else {
+        shipList = action.ships
+    }
+    return {...state, isFetching: false, shipList: shipList }
 }
 
 const shipsReducer = (state = initialState, action) => {

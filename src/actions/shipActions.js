@@ -46,11 +46,13 @@ export function getShips(url, dispatch) {
         .then(response => response.json())
         .then(json => {
             // Possibility of fetching a single ship via id
-            json.results
-                ? dispatch(recieveShips(json))
-                : dispatch(recieveShip(json))
-            // And store next page for pagination
-            dispatch(recieveNextPage(json))
+            if (json.results) {
+                dispatch(recieveShips(json));
+                // And store next page for pagination
+                dispatch(recieveNextPage(json));
+            } else {
+                dispatch(recieveShip(json))
+            }
         });
 }
 

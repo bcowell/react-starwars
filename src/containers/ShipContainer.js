@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { 
+import {
     fetchShipsIfNeeded,
     loadMoreShipsForInfiniteScroll,
 } from '../actions/shipActions';
@@ -18,13 +18,14 @@ const ShipContainer = (props) => {
         props.fetchShips(shipId); // Optional ship id
     }
 
+
     return (
         <Container>
-            <Row>
-                <Ships ships={ships} isFetching={isFetching} style={{ height: '100vh' }}/>
-                <InfiniteLoader onVisited={() => props.loadMore()} />
-            </Row>
-        </Container>
+        <Row>
+            <Ships ships={ships} isFetching={isFetching} style={{ height: '100vh' }} />
+            <InfiniteLoader onVisited={() => props.loadMore()} />
+        </Row>
+    </Container>
     )
 }
 
@@ -39,6 +40,6 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default connect(
-    mapStateToProps, 
+    mapStateToProps,
     mapDispatchToProps
 )(ShipContainer)
