@@ -11,7 +11,8 @@ const Ships = props =>
             : 'No ships...'
 
 Ships.propTypes = {
-    ships: PropTypes.array
+    ships: PropTypes.array.isRequired,
+    isFetching: PropTypes.bool.isRequired
 }
 
 export default Ships;

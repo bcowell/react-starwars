@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Table } from 'reactstrap';
+import PropTypes from 'prop-types';
 
 // The Star Wars api doesn't include a reference to each ship id
 // Instead it includes a url, which isn't as useful
@@ -8,6 +9,7 @@ import { Table } from 'reactstrap';
 // There's even a feature request for it here: https://github.com/phalt/swapi/issues/84
 const regExp = /[^\d]/g
 const parseUrlForId = url => url.replace(regExp, '')
+
 
 const Ship = ({ ships, history }) => {
 
@@ -20,6 +22,11 @@ const Ship = ({ ships, history }) => {
             ? <SingleShip ships={ships} updateRoute={updateRoute} />
             : <ShipList ships={ships} updateRoute={updateRoute} />
     )
+}
+
+Ship.propTypes = {
+    ships: PropTypes.array.isRequired,
+    history: PropTypes.object
 }
 
 const ShipList = ({ ships, updateRoute }) =>
@@ -45,6 +52,11 @@ const ShipList = ({ ships, updateRoute }) =>
             }
         </tbody>
     </Table>
+
+ShipList.propTypes = {
+    ships: PropTypes.array.isRequired,
+    updateRoute: PropTypes.func.isRequired
+}
 
 const SingleShip = ({ ships, updateRoute }) =>
     <Table responsive hover>
@@ -83,5 +95,10 @@ const SingleShip = ({ ships, updateRoute }) =>
             }
         </tbody>
     </Table>
+
+SingleShip.propTypes = {
+    ships: PropTypes.array.isRequired,
+    updateRoute: PropTypes.func.isRequired
+}
 
 export default withRouter(Ship);
