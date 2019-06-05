@@ -12,6 +12,7 @@ const bottomHalf = {
     backgroundColor: '#20232a',
     color: 'white',
     textAlign: 'center',
+    
 }
 
 const Footer = () => 
